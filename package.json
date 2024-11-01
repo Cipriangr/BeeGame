@@ -1,0 +1,62 @@
+{
+  "devDependencies": {
+    "@types/jasmine": "^5.1.4",
+    "concurrently": "^9.0.1",
+    "html-webpack-plugin": "^5.6.3",
+    "jasmine": "^5.4.0",
+    "lite-server": "^2.6.1",
+    "ts-loader": "^9.5.1",
+    "typescript": "^5.6.3",
+    "webpack": "^5.96.1",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^5.1.0"
+  },
+  "name": "beegame",
+  "version": "1.0.0",
+  "description": "The bee game",
+  "main": "app.ts",
+  "directories": {
+    "test": "tests"
+  },
+  "dependencies": {
+    "ansi-regex": "^6.1.0",
+    "ansi-styles": "^6.2.1",
+    "balanced-match": "^1.0.2",
+    "brace-expansion": "^2.0.1",
+    "color-convert": "^2.0.1",
+    "color-name": "^1.1.4",
+    "cross-spawn": "^7.0.3",
+    "eastasianwidth": "^0.2.0",
+    "emoji-regex": "^9.2.2",
+    "foreground-child": "^3.3.0",
+    "glob": "^10.4.5",
+    "is-fullwidth-code-point": "^3.0.0",
+    "isexe": "^2.0.0",
+    "jackspeak": "^3.4.3",
+    "jasmine-core": "^5.4.0",
+    "lru-cache": "^10.4.3",
+    "minimatch": "^9.0.5",
+    "minipass": "^7.1.2",
+    "package-json-from-dist": "^1.0.1",
+    "path-key": "^3.1.1",
+    "path-scurry": "^1.11.1",
+    "shebang-command": "^2.0.0",
+    "shebang-regex": "^3.0.0",
+    "signal-exit": "^4.1.0",
+    "string-width": "^5.1.2",
+    "string-width-cjs": "^4.2.3",
+    "strip-ansi": "^7.1.0",
+    "strip-ansi-cjs": "^6.0.1",
+    "which": "^2.0.2",
+    "wrap-ansi": "^8.1.0",
+    "wrap-ansi-cjs": "^7.0.0"
+  },
+  "scripts": {
+    "test": "jasmine",
+    "build": "webpack --mode production",
+    "start": "webpack serve --mode development"
+  },
+  "author": "",
+  "license": "ISC",
+  "keywords": []
+}

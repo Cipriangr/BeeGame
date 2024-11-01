@@ -1,0 +1,10 @@
+{
+  "port": 3000,
+  "server": {
+    "baseDir": ["./dist", "./public"],
+    "routes": {
+      "/": "./public"
+    }
+  },
+  "files": ["./dist/**/*.{html,js,css}", "./public/**/*.{html,css}"]
+}
