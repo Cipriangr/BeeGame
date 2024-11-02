@@ -1,7 +1,7 @@
 export enum BeeType {
-  QUEEN = "queen",
-  WORKER = "worker",
-  DRONE = "drone"
+  QUEEN = "Queen",
+  WORKER = "Workers",
+  DRONE = "Drones"
 }
 
 export const BeeHealth: Record<BeeType, number> = {
