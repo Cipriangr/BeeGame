@@ -1,7 +1,6 @@
-import { create } from 'domain';
 import { initializeGame, loadGame } from './services/GameService';
 import { BeeType, Swarm } from './config/constants';
-import { getGameStatus, getPlayerName, getSwarm, saveGameStatus, savePlayerName } from './services/StorageService';
+import { getGameStatus, getPlayerName, getSwarm, saveGameStatus, savePlayerName, resetGame } from './services/StorageService';
 // import { renderHitButton } from './src/components/HitButtonComponent';
 // import { renderSwarm } from './src/components/SwarmComponent.ts';
 // import { renderBeeInfo } from './src/components/BeeInfoComponent.ts';
@@ -11,7 +10,7 @@ const swarmSection = document.getElementById('swarm-section');
 
 document.addEventListener('DOMContentLoaded', () => {
     let startGameButton = document.getElementById('start-game') as HTMLButtonElement;
-    const resetGame = document.getElementById('reset-game') as HTMLButtonElement;
+    const resetGameButton = document.getElementById('reset-game') as HTMLButtonElement;
 
     if (!startGameButton && !gameInProgress) {
         console.log('Game not in progress, creating start button');
@@ -25,13 +24,13 @@ document.addEventListener('DOMContentLoaded', () => {
         initializeBees(startGameButton);
     }
 
-    if(startGameButton && gameInProgress) {
-        loadGame();
+    if(!startGameButton && gameInProgress) {
+        displayBees();
     }
 
-    if (resetGame) {
-        resetGame.addEventListener('click', () => {
-            saveGameStatus(false);
+    if (resetGameButton) {
+        resetGameButton.addEventListener('click', () => {
+            resetGame();
             //work on reseting the game, update UI without reloading
             location.reload();
         });
@@ -80,18 +79,19 @@ function initializeBees(gameButton: HTMLButtonElement) {
     const playerInput = document.getElementById('player-name-input') as HTMLInputElement;
 
     gameButton.addEventListener('click', () => {
-        const playerName = playerInput ? playerInput.value : getPlayerName() ? getPlayerName() : '';
-        //save in localstorage
+        const playerName = playerInput?.value || getPlayerName();
+        savePlayerName(playerName);
         gameButton.style.display = 'none';
         playerInfo!.style.display = 'none';
         saveGameStatus(true);
         initializeGame();
-        displayBees(playerName);
+        displayBees();
     });
 }
 
-function displayBees(playerName: string) {
+function displayBees() {
     let Swarm: Swarm = getSwarm();
+    const playerName = getPlayerName();
     if (swarmSection) {
         const playerNameElement = document.createElement('h3');
         playerNameElement.innerText = 'Hey ' + playerName.toUpperCase() + '! Press Hit to attack the bees';
@@ -105,52 +105,39 @@ function displayBees(playerName: string) {
 
         Object.keys(Swarm).forEach((key) => {
             const beeType = key as BeeType;
-            const bees = Swarm[beeType];
+            const bees = Swarm[beeType] || [];
             const beeDomElement = divMap[beeType];
-            console.log('!!beediv', beeDomElement);
             beeDomElement.setAttribute('class', beeType.toLowerCase());
+            beeDomElement.setAttribute('id', 'bees');
 
             if (beeDomElement) {
-                createBeesImages(beeType, bees.length, beeDomElement);
+                createBees(beeType, bees, beeDomElement);
                 swarmSection.appendChild(beeDomElement);
             }
         });
-
-        // const workersDiv = document.createElement('div');
-        // const queendiv = document.createElement('div');
-        // const dronesDiv = document.createElement('div');
-
-        // workersDiv.setAttribute('class', 'workers');
-        // queendiv.setAttribute('class', 'queen');
-        // dronesDiv.setAttribute('class', 'drones');
-
-        // swarmSection.appendChild(workersDiv);
-        // swarmSection.appendChild(queendiv);
-        // swarmSection.appendChild(dronesDiv);
-        
-        // savePlayerName(playerName);
-        // console.log('swarm', Swarm);
-        // Swarm.Workers.forEach(worker => { 
-        //     const workerLength = Swarm.Workers.length;
-        //     createBeesImages(worker.type, workerLength, workersDiv);
-        // });
-
-        // createBeesImages(BeeType.WORKER, 5, workersDiv);
-        // createBeesImages(BeeType.QUEEN, 1, queendiv);
-        // createBeesImages(BeeType.DRONE, 8, dronesDiv);
     }
 }
 
-function createBeeType() {
+function createBees(beeType: BeeType, bees: { id: number, health: number }[], container: HTMLElement) {
+    bees.forEach((bee) => {
+        const specificBee = document.createElement('div');
+        specificBee.classList.add('specific-bee');
+        specificBee.setAttribute('id', `${bee.id}`);
 
-}
+        const healthBar = document.createElement('span');
+        healthBar.classList.add('health-bar');
+        healthBar.innerHTML = `HP: ${bee.health}`;
+        healthBar.setAttribute('data-health', `${bee.health}`);
 
-function createBeesImages(beeType: BeeType, beeNumber: number, beeSection: HTMLElement) {
-    for (let bee = 0; bee < beeNumber; bee++) {
+        specificBee.appendChild(healthBar);
+
         const beeImage = document.createElement('img');
         beeImage.setAttribute('src', `assets/${beeType}.png`);
         beeImage.setAttribute('class', beeType);
-        beeSection.appendChild(beeImage);
-    }
+        specificBee.appendChild(beeImage);
+        beeImage.setAttribute('id', `${bee.id}`);
+        beeImage.setAttribute('data-id', `${bee.id}`);
 
+        container.appendChild(specificBee);
+    });
 }

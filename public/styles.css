@@ -53,6 +53,16 @@
   max-width: 100%;
 }
 
+.bee-game .game-container .swarm #bees {
+  display: flex;
+}
+
+.bee-game .game-container .swarm .specific-bee {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .bee-game .game-container .swarm .drones {
   display: grid;
   grid-template-columns: repeat(4, auto);

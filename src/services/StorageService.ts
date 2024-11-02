@@ -15,8 +15,7 @@ export function saveSwarm(swarm: Swarm) {
 }
 
 export function getSwarm(): Swarm {
-  const swarm = localStorage.getItem('swarm');
-  return swarm ? JSON.parse(swarm) : [];
+  return JSON.parse(localStorage.getItem('swarm') || '{}');
 }
 
 export function savePlayerName(name: string) {
@@ -25,4 +24,8 @@ export function savePlayerName(name: string) {
 
 export function getPlayerName(): string {
   return localStorage.getItem('playerName') || '';
+}
+
+export function resetGame(): void {
+  localStorage.clear();
 }

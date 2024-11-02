@@ -19,7 +19,7 @@ export const BeeHitDamage: Record<BeeType, number> = {
 interface Bee {
   id: number;
   type: BeeType;
-  hp: number;
+  health: number;
   isAlive: boolean;
 }
 
