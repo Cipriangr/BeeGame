@@ -10,6 +10,8 @@ export function displayGameUI() {
     const Swarm: Swarm = getSwarm();
 
     if (swarmSection) {
+        swarmSection.innerHTML = '';  // Clear existing content to prevent duplication
+
         const playerNameElement = document.createElement('h3');
         playerNameElement.innerText = `Hey ${playerName.toUpperCase()}! Press Hit to attack the bees`;
         swarmSection.appendChild(playerNameElement);
@@ -25,8 +27,12 @@ export function displayGameUI() {
             const bees = Swarm[beeType] || [];
             const beeContainer = divMap[beeType];
             beeContainer.setAttribute('class', beeType.toLowerCase());
-            createBees(beeType, bees, beeContainer);
-            swarmSection.appendChild(beeContainer);
+            beeContainer.setAttribute('id', 'bees');
+
+            if(beeContainer) {
+                createBees(beeType, bees, beeContainer);
+                swarmSection.appendChild(beeContainer);
+            }
         });
     }
 }
