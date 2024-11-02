@@ -1,4 +1,4 @@
-import { initializeGame } from './services/GameService';
+import { alertAndHandleReset, initializeGame } from './services/GameService';
 import { getGameStatus, saveGameStatus, resetGame, getSwarm, savePlayerName, getPlayerName } from './services/StorageService';
 import { createStartButton } from './ui/StartButtonUI';
 import { createPlayerNameElements } from './ui/PlayerUI';
@@ -8,6 +8,7 @@ import { hitButtonAction } from './components/HitButtonComponent';
 let gameInProgress = getGameStatus();
 const swarmSection = document.getElementById('swarm-section');
 const actionButtons = document.getElementById('action-buttons') as HTMLDivElement;
+const attackInfo = document.getElementById('bee-info') as HTMLDivElement;
 
 document.addEventListener('DOMContentLoaded', () => {
     let startGameButton = document.getElementById('start-game') as HTMLButtonElement;
@@ -22,6 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
         startGameButton = createStartButton(swarmSection!, initializeBees);
         startGameButton.setAttribute('data-initialized', 'false');
         actionButtons.style.display = 'none';
+        attackInfo.style.display = 'none';
     }
 
     //Game not started, make start button available
@@ -33,13 +35,15 @@ document.addEventListener('DOMContentLoaded', () => {
     if (gameInProgress && Object.keys(swarm).length > 0) {
         displayGameUI();
         actionButtons.style.display = 'flex';
+        attackInfo.style.display = 'flex';
         hitButtonAction();
     }
 
     if (resetGameButton) {
         resetGameButton.addEventListener('click', () => {
             resetGame();
-            actionButtons.style.display = 'flex';
+            // actionButtons.style.display = 'none';
+            // attackInfo.style.display = 'none';
             location.reload();
         });
     }
@@ -58,7 +62,7 @@ function initializeBees(gameButton: HTMLButtonElement) {
         const playerName = playerInput?.value || getPlayerName();
         savePlayerName(playerName);
         if (!playerName) {
-            alert('Please enter your name to start the game');
+            alertAndHandleReset('Please enter your name to start the game');
             return;
         }
 
@@ -69,5 +73,6 @@ function initializeBees(gameButton: HTMLButtonElement) {
         displayGameUI();                  // Displays the initialized bees and player info
         hitButtonAction();
         actionButtons.style.display = 'flex';
+        attackInfo.style.display = 'flex';
     });
 }

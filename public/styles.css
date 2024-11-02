@@ -4,6 +4,7 @@
   align-items: center;
   justify-content: center;
   height: 100vh;
+  margin: 0;
 }
 
 .bee-game .game-container {
@@ -66,13 +67,17 @@
   align-items: center;
 }
 
-.bee-game .game-container .swarm .specific-bee .health-bar {
+.bee-game .game-container .swarm .specific-bee {
   font-weight: bold;
   color: #FFF5E1;
   font-size: 16px;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
 }
 
+.bee-game .game-container .swarm .enlarge-translate {
+  transform: scale(1.4) translate(10px, 10px);
+  transition: transform 1s ease;
+}
 
 .bee-game .game-container .swarm .drones {
   display: grid;
@@ -90,10 +95,20 @@
 }
 
 .bee-game .actions {
-  gap: 30px;
-  margin: 30px 0;
+  gap: 15px;
+  margin: 5px;
 }
 
 .bee-game .actions button {
   font-size: 16px;
+}
+
+.bee-game #bee-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.bee-game .bee-info h3{
+  margin: 5px;
 }
