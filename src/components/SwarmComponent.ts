@@ -2,7 +2,7 @@ import { BeeType, Swarm } from '../config/constants';
 import { saveSwarm } from '../services/StorageService';
 
 
-export function initializeSwarm() {
+export function initializeSwarm(): void {
   const Swarm = {
     Workers: [
       { id: 2, type: BeeType.WORKER, health: 75, isAlive: true },
@@ -25,4 +25,28 @@ export function initializeSwarm() {
   };
     saveSwarm(Swarm);
   console.log(Swarm);
+}
+
+// Function to create and render bees in the DOM
+export function createBees(beeType: BeeType, bees: { id: number, health: number }[], container: HTMLElement) {
+  bees.forEach((bee) => {
+    const specificBee = document.createElement('div');
+    specificBee.classList.add('specific-bee');
+    specificBee.setAttribute('id', `${bee.id}`);
+
+    const healthBar = document.createElement('span');
+    healthBar.classList.add('health-bar');
+    healthBar.innerHTML = `HP: ${bee.health}`;
+    healthBar.setAttribute('data-health', `${bee.health}`);
+    specificBee.appendChild(healthBar);
+
+    const beeImage = document.createElement('img');
+    beeImage.setAttribute('src', `assets/${beeType}.png`);
+    beeImage.setAttribute('class', beeType);
+    beeImage.setAttribute('id', `${bee.id}`);
+    beeImage.setAttribute('data-id', `${bee.id}`);
+    specificBee.appendChild(beeImage);
+
+    container.appendChild(specificBee);
+  });
 }

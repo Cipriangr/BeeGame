@@ -1,13 +1,7 @@
-import { initializeSwarm } from "../components/SwarmComponent";
-import { getSwarm } from "./StorageService";
+import { initializeSwarm } from '../components/SwarmComponent';
+import { displayGameUI } from '../ui/DisplayUI';
 
 export function initializeGame() {
-  //Load din localstorage
-  // loadGame()
-  initializeSwarm();
-  console.log('!!testsd');
-}
-
-export function loadGame() {
-  getSwarm();
+    initializeSwarm();
+    displayGameUI();
 }
