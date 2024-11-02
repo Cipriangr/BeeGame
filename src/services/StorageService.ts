@@ -1,4 +1,4 @@
-import { Swarm } from "../config/constants";
+import { Bee, Swarm } from "../config/constants";
 
 export function getGameStatus(): boolean {
   const status = localStorage.getItem('gameInProgress');
@@ -28,4 +28,15 @@ export function getPlayerName(): string {
 
 export function resetGame(): void {
   localStorage.clear();
+}
+
+export function updateBeeStorage(bee: Bee) {
+  const swarm = getSwarm();
+  const beeType = bee.type;
+  const beeIndex = swarm[beeType].findIndex((b) => b.id === bee.id);
+  console.log('bee', bee);
+  if (beeIndex !== -1) { //bee index exist in storage?
+    swarm[beeType][beeIndex] = bee;
+    saveSwarm(swarm);
+  }
 }

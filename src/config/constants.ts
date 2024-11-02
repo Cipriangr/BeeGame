@@ -4,6 +4,19 @@ export enum BeeType {
   DRONE = "Drones"
 }
 
+export enum BeeTypeSingular {
+  QUEEN = "Queen",
+  WORKER = "Worker",
+  DRONE = "Drone"
+}
+
+// Mapping from BeeType to BeeTypeSingular
+export const BeeTypeMapping: Record<BeeType, BeeTypeSingular> = {
+  [BeeType.QUEEN]: BeeTypeSingular.QUEEN,
+  [BeeType.WORKER]: BeeTypeSingular.WORKER,
+  [BeeType.DRONE]: BeeTypeSingular.DRONE
+};
+
 export const BeeHealth: Record<BeeType, number> = {
   [BeeType.QUEEN]: 100,
   [BeeType.WORKER]: 75,
@@ -16,7 +29,7 @@ export const BeeHitDamage: Record<BeeType, number> = {
   [BeeType.DRONE]: 12
 };
 
-interface Bee {
+export interface Bee {
   id: number;
   type: BeeType;
   health: number;
