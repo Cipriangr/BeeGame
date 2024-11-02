@@ -12,6 +12,8 @@ export function createPlayerNameElements(swarmSection: HTMLElement) {
   playerNameInput.setAttribute('type', 'text');
   playerNameInput.setAttribute('id', 'player-name-input');
   playerNameInput.setAttribute('placeholder', 'Enter your name');
+  playerNameInput.setAttribute('required', 'true');
+  playerNameInput.setAttribute('maxlength', '20');
 
   playerNameDiv.appendChild(playerNameLabel);
   playerNameDiv.appendChild(playerNameInput);
