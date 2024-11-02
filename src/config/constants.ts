@@ -1,7 +1,7 @@
 export enum BeeType {
-  QUEEN = "queen",
-  WORKER = "worker",
-  DRONE = "drone"
+  QUEEN = "Queen",
+  WORKER = "Workers",
+  DRONE = "Drones"
 }
 
 export const BeeHealth: Record<BeeType, number> = {
@@ -19,7 +19,7 @@ export const BeeHitDamage: Record<BeeType, number> = {
 interface Bee {
   id: number;
   type: BeeType;
-  hp: number;
+  health: number;
   isAlive: boolean;
 }
 
