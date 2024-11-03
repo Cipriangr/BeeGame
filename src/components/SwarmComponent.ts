@@ -54,7 +54,7 @@ export function createBees(beeType: BeeType, bees: Bee[], container: HTMLElement
     specificBee.appendChild(healthBar);
 
     const beeImage = document.createElement('img');
-    beeImage.setAttribute('src', `assets/${beeType}.png`);
+    beeImage.setAttribute('src', `./assets/${beeType}.png`);
     beeImage.setAttribute('class', beeType);
     beeImage.setAttribute('id', `${bee.id}`);
     beeImage.setAttribute('data-id', `${bee.id}`);
