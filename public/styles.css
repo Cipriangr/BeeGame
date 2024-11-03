@@ -3,95 +3,113 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh;
-  margin: 0;
+  /* height: 100vh; */
+  padding: 10px 0;
+}
+
+.bee-game h1 {
+  color: rgb(23, 26, 199);
 }
 
 .bee-game .game-container {
-  width: 1000px;
-  height: 500px;
+  width: 100%;
+  height: auto;
   background-image: url('./assets/nature.jpg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  padding: 20px;
   place-items: center;
   border-radius: 10%;
+  padding: 20px 0;
+  margin: 0 10px;
 }
+
 
 .bee-game .game-container .swarm {
   display: flex;
   flex-direction: column;
   /* grid-template-rows: repeat(3, auto); */
-  gap: 30px;
+  gap: 15px;
   align-items: center;
-  height: 100%;
+  /* height: 100%; */
   justify-content: center;
   width: 100%;
+  min-height: 300px;
 }
 
-.bee-game .game-container .swarm h3 {
+.bee-game .game-container .swarm h3{
   margin: 0;
   color: #FFF5E1;
-  text-shadow: 1px 1px 3px rgba(209, 37, 51, 0.5);
-  font-size: 24px;
+  text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.7);
+  font-size: 18px;
 }
-
 
 .bee-game .game-container .swarm #player-name {
   display: grid;
   grid-template-rows: auto auto;
   align-items: center;
   gap: 10px;
+  margin-bottom: 10px;
 }
 
 .bee-game .game-container .swarm #player-name label{
-  font-size: 22px;
+  font-size: 20px;
   color: #FFF5E1;
-  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+  text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.7);
+  text-align: center;
 }
 
 .bee-game .game-container .swarm #player-name input {
   width: 200px;
   justify-self: center;
   max-width: 100%;
+  border: 3px solid lightblue;
+  padding: 3px;
+  font-size: 14px;
 }
 
-.bee-game .game-container .swarm #bees {
-  display: flex;
+.bee-game .game-container .swarm #player-name input:focus {
+  border: 3px solid lightblue;
+  outline: none;
+  font-weight: bold;
+}
+
+.bee-game .game-container .swarm .workers, 
+.bee-game .game-container .swarm .drones {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 5px;
+  width: 100%;
 }
 
 .bee-game .game-container .swarm .specific-bee {
   display: flex;
   flex-direction: column;
   align-items: center;
-}
-
-.bee-game .game-container .swarm .specific-bee {
   font-weight: bold;
   color: #FFF5E1;
-  font-size: 16px;
+  font-size: 14px;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
 }
 
 .bee-game .game-container .swarm .enlarge-translate {
-  transform: scale(1.4) translate(10px, 10px);
+  transform: scale(1.1) translate(10px, 10px);
   transition: transform 1s ease;
 }
 
-.bee-game .game-container .swarm .drones {
-  display: grid;
-  grid-template-columns: repeat(4, auto);
-}
-
 .bee-game .game-container .swarm .workers img {
-  width: 90px;
-  height: 70px;
+  width: 60px;
+  height: 100%;
 }
 
 .bee-game .game-container .swarm .queen img {
-  width: 120px;
-  height: 100px;
+  width: 80px;
+  height: 100%;
+}
+
+.bee-game .game-container .swarm .drones img {
+  width: 70px;
+  height: 100%;
 }
 
 .bee-game .actions {
@@ -99,16 +117,106 @@
   margin: 5px;
 }
 
-.bee-game .actions button {
-  font-size: 16px;
-}
-
 .bee-game #bee-info {
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin: 20px 0;
 }
 
-.bee-game .bee-info h3{
+.bee-game #bee-info h3{
+  margin: 0;
+  color: rgb(23, 26, 199)
+}
+.bee-game #bee-info p{
+  color: red;
   margin: 5px;
+}
+
+.bee-game .start-button {
+  background-color: transparent;
+  border: 2px solid lightblue;
+  padding: 5px 10px;
+  border-radius: 10px;
+  font-weight: 700;
+  color: #FFF5E1;
+  font-size: 14px;
+  transition: all 0.25s ease-in-out;
+}
+
+.bee-game .start-button:hover {
+  cursor: pointer;
+  background-color: lightblue;
+  color: white;
+}
+
+.bee-game .btn {
+  background-color: transparent;
+  border: 2px solid rgb(23, 26, 199);
+  padding: 5px 10px;
+  border-radius: 10px;
+  font-weight: 700;
+  color: rgb(23, 26, 199);
+  font-size: 14px;
+  transition: all 0.25s ease-in-out;
+}
+
+.bee-game .btn:hover {
+  cursor: pointer;
+  background-color: rgb(23, 26, 199);
+  color: white;
+}
+
+.bee-game .btn:disabled {
+  color: gray;
+  border: 2px solid gray;
+}
+
+@media(min-width: 768px) {
+  .bee-game .game-container .swarm .workers img { 
+    width: 90px;
+    height: 100%;
+  }
+
+  .bee-game .game-container .swarm .queen img {
+    width: 120px;
+    height: 100px;
+  }
+
+  .bee-game .game-container .swarm .drones img {
+    width: 100%;
+    height: 100%;
+  }
+
+  .bee-game .game-container { 
+    padding: 50px 0;
+  }
+
+  .bee-game .game-container .swarm{
+    gap: 15px;
+  }
+
+  .bee-game .game-container .swarm h3{
+    font-size: 24px;
+  }
+
+  .bee-game .game-container .swarm #player-name label{
+    font-size: 22px;
+  }
+
+  .bee-game .game-container .swarm .workers,
+  .bee-game .game-container .swarm .drones{
+    display: flex;
+    gap: 10px;
+    width: fit-content;
+  }
+
+  .bee-game .game-container .swarm .specific-bee { 
+    font-size: 16px;
+    }
+  
+  .bee-game .game-container .swarm .enlarge-translate {
+    transform: scale(1.2) translate(10px, 10px);
+    transition: transform 1s ease;
+  }
 }
