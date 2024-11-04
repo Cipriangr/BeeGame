@@ -5,6 +5,7 @@ import { createPlayerNameElements } from './ui/PlayerUI';
 import { displayGameUI } from './ui/DisplayGameUI';
 import { hitButtonAction } from './components/HitButtonComponent';
 import { initializeSwarm } from './components/SwarmComponent';
+import { AlertMessage } from './config/constants';
 
 let gameInProgress = getGameStatus();
 const swarmSection = document.getElementById('swarm-section') as HTMLDivElement | null;
@@ -64,7 +65,7 @@ function initializeBees(gameButton: HTMLButtonElement) {
         const playerName = playerInput?.value || getPlayerName();
         savePlayerName(playerName);
         if (!playerName) {
-            alertAndHandleReset('Please enter your name to start the game');
+            alertAndHandleReset(AlertMessage.PLAYER_NAME_EMPTY);
             return;
         }
 

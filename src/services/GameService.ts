@@ -1,4 +1,4 @@
-import { Bee, BeeHitDamage, BeeTypeMapping } from '../config/constants';
+import { AlertMessage, Bee, BeeHitDamage, BeeTypeMapping } from '../config/constants';
 import { resetGame, updateBeeStorage } from './StorageService';
 
 export const dependencies = {
@@ -45,7 +45,7 @@ export function damageInfo(bee: Bee): string {
 }
 
 export function killEntireSwarm(): void {
-    alertAndHandleReset('The Queen has died. All bees are dead. The game will restart', true);
+    alertAndHandleReset(AlertMessage.QUEEN_DEAD, true);
 }
 
 export function removeBeeDOMElement(bee: Bee): void { 

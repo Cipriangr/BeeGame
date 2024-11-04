@@ -1,5 +1,3 @@
-// displayGameUI.spec.ts
-
 import { displayGameUI } from '../src/ui/DisplayGameUI';
 import { BeeType, Swarm } from '../src/config/constants';
 import sinon from 'sinon';
