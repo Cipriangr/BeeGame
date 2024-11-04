@@ -1,16 +1,24 @@
 import { BeeType, Swarm } from '../config/constants';
-import { getSwarm, getPlayerName } from '../services/StorageService';
-import { createBees } from '../components/SwarmComponent';
+import { getSwarm as defaultGetSwarm, getPlayerName as defaultGetPlayerName } from '../services/StorageService';
+import { createBees as defaultCreateBees } from '../components/SwarmComponent';
 
-const swarmSection = document.getElementById('swarm-section');
+interface DisplayGameUIDependencies {
+    getSwarm?: () => Swarm;
+    getPlayerName?: () => string;
+    createBees?: (beeType: BeeType, bees: any[], container: HTMLElement) => void;
+}
 
-// Display the player name and swarm
-export function displayGameUI(): void {
+export function displayGameUI({
+    getSwarm = defaultGetSwarm,
+    getPlayerName = defaultGetPlayerName,
+    createBees = defaultCreateBees
+}: DisplayGameUIDependencies = {}): void {
+    const swarmSection = document.getElementById('swarm-section');
     const playerName = getPlayerName();
     const Swarm: Swarm = getSwarm();
 
     if (swarmSection) {
-        swarmSection.innerHTML = '';  //Clear existing content to prevent duplication
+        swarmSection.innerHTML = '';
 
         const playerNameElement = document.createElement('h3');
         playerNameElement.innerText = `Hey ${playerName}! Press Hit to attack the bees`;
@@ -29,7 +37,7 @@ export function displayGameUI(): void {
             beeContainer.setAttribute('class', beeType.toLowerCase());
             beeContainer.setAttribute('id', 'bees');
 
-            if(beeContainer) {
+            if (beeContainer) {
                 createBees(beeType, bees, beeContainer);
                 swarmSection.appendChild(beeContainer);
             }

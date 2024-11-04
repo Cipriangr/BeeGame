@@ -1,5 +1,5 @@
 export function createPlayerNameElements(swarmSection: HTMLElement) {
-  if (document.getElementById('player-name-div')) return;
+  if (document.getElementById('player-name')) return;
 
   const playerNameDiv = document.createElement('div');
   playerNameDiv.setAttribute('id', 'player-name');
