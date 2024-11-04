@@ -1,14 +1,11 @@
-import { Swarm, Bee, BeeType, BeeHitDamage, BeeTypeMapping } from "../config/constants";
-import { alertAndHandleReset } from "../services/GameService";
-import { getSwarm, updateBeeStorage } from "../services/StorageService";
+import { Swarm, Bee, BeeType, BeeHitDamage } from "../config/constants";
+import { alertAndHandleReset, killEntireSwarm, removeBeeDOMElement, updateBee } from "../services/GameService";
+import { getSwarm } from "../services/StorageService";
 
 export function hitButtonAction() {
     const hitButton = document.getElementById('hit-button') as HTMLButtonElement;
     if (hitButton) {
         hitButton.addEventListener('click', () => {
-            //I want to make the button disabled for 1 second after it is clicked
-            // hitButton.disabled = true;
-
             const bees = getSwarm();
             const selectedBee = getRandomBeeType(bees);
             console.log('selectedBee', selectedBee);
@@ -18,10 +15,6 @@ export function hitButtonAction() {
             }
 
             attackBee(selectedBee);
-
-            // setTimeout(() => {  
-            //     hitButton.disabled = false;
-            // }, 1500);
         });
     }
 }
@@ -67,47 +60,4 @@ function attackBee(bee: Bee) {
     }
 
     updateBee(bee);
-}
-
-function updateBee(bee: Bee) {
-    updateBeeDOMElement(bee);
-    updateBeeStorage(bee);
-}
-
-function updateBeeDOMElement(bee: Bee) { 
-    const beeElement = document.getElementById(`${bee.id}`) as HTMLElement;
-    if (!beeElement) return;
-
-    const beeInfo = document.getElementById('attack-info') as HTMLElement;
-    if (beeInfo) {
-        beeInfo.innerHTML = damageInfo(bee);
-    }
-
-    const healthBar = beeElement.querySelector('.health-bar') as HTMLElement;
-    healthBar.innerHTML = `HP: ${bee.health}`;
-    healthBar.setAttribute('data-health', `${bee.health}`);
-
-    beeElement.classList.add('enlarge-translate');
-
-    // Remove the class after 1 second to reset the transformation
-    setTimeout(() => {
-        beeElement.classList.remove('enlarge-translate');
-    }, 1500);
-}
-
-function damageInfo(bee: Bee): string {
-    if (bee.health <= 0) {
-        return `${BeeTypeMapping[bee.type]} ${bee.id} was hit with ${BeeHitDamage[bee.type]} damage and is now dead because its health reached 0.`;
-    }
-
-    return `You hit ${BeeTypeMapping[bee.type]} ${bee.id} for ${BeeHitDamage[bee.type]} damage`;
-}
-
-function killEntireSwarm(): void {
-    alertAndHandleReset('The Queen has died. All bees are dead. The game will restart', true);
-}
-
-function removeBeeDOMElement(bee: Bee) { 
-    const beeElement = document.getElementById(`${bee.id}`) as HTMLElement;
-    beeElement.remove();
 }

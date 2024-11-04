@@ -29,8 +29,8 @@ export function initializeSwarm(): void {
   saveSwarm(Swarm);
 }
 
-// Function to create and render bees in the DOM
-export function createBees(beeType: BeeType, bees: Bee[], container: HTMLElement) {
+//Create and render bees in the DOM
+export function createBees(beeType: BeeType, bees: Bee[], container: HTMLElement): void {
   bees.forEach((bee) => {
     
     if (bee.health <=0 && !bee.isAlive) {

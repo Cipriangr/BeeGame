@@ -5,15 +5,15 @@ import { createBees } from '../components/SwarmComponent';
 const swarmSection = document.getElementById('swarm-section');
 
 // Display the player name and swarm
-export function displayGameUI() {
+export function displayGameUI(): void {
     const playerName = getPlayerName();
     const Swarm: Swarm = getSwarm();
 
     if (swarmSection) {
-        swarmSection.innerHTML = '';  // Clear existing content to prevent duplication
+        swarmSection.innerHTML = '';  //Clear existing content to prevent duplication
 
         const playerNameElement = document.createElement('h3');
-        playerNameElement.innerText = `Hey ${playerName.toUpperCase()}! Press Hit to attack the bees`;
+        playerNameElement.innerText = `Hey ${playerName}! Press Hit to attack the bees`;
         swarmSection.appendChild(playerNameElement);
 
         const divMap = {
