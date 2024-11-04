@@ -1,5 +1,3 @@
-// SwarmComponent.spec.ts
-
 import { initializeSwarm, createBees } from '../src/components/SwarmComponent';
 import { BeeType, BeeHealth, BeeTypeMapping } from '../src/config/constants';
 import sinon from 'sinon';

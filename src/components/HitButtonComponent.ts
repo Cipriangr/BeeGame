@@ -1,5 +1,3 @@
-// HitButtonComponent.ts
-
 import { Swarm, Bee, BeeType, BeeHitDamage, AlertMessage } from "../config/constants";
 import { alertAndHandleReset, killEntireSwarm, removeBeeDOMElement, updateBee } from "../services/GameService";
 import { getSwarm } from "../services/StorageService";

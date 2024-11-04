@@ -1,5 +1,3 @@
-// HitButtonComponent.spec.ts
-
 import { hitButtonAction } from '../src/components/HitButtonComponent';
 import { Swarm, Bee, BeeType } from '../src/config/constants';
 import sinon from 'sinon';
