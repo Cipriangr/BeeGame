@@ -1,53 +1,46 @@
-import { initializeSwarm } from '../components/SwarmComponent';
 import { Bee, BeeHitDamage, BeeTypeMapping } from '../config/constants';
-import { displayGameUI } from '../ui/DisplayGameUI';
 import { resetGame, updateBeeStorage } from './StorageService';
 
-export function initializeGame(): void {
-    initializeSwarm();
-    displayGameUI();
-}
+export const dependencies = {
+    resetGame,
+    updateBeeStorage,
+    reloadPage: () => window.location.reload(),
+};
 
 export function alertAndHandleReset(message: string, reset?: boolean): void {
     alert(message);
     if (reset) {
-        resetGame();
-        location.reload();
+        dependencies.resetGame();
+        dependencies.reloadPage();
     }
 }
-
 
 export function updateBee(bee: Bee): void {
+    dependencies.updateBeeStorage(bee);
     updateBeeDOMElement(bee);
-    updateBeeStorage(bee);
 }
 
-export function updateBeeDOMElement(bee: Bee): void { 
-    const beeElement = document.getElementById(`${bee.id}`) as HTMLElement;
+export function updateBeeDOMElement(bee: Bee): void {
+    const beeElement = document.getElementById(`${bee.id}`);
     if (!beeElement) return;
-
-    const beeInfo = document.getElementById('attack-info') as HTMLElement;
-    if (beeInfo) {
-        beeInfo.innerHTML = damageInfo(bee);
-    }
 
     const healthBar = beeElement.querySelector('.health-bar') as HTMLElement;
     healthBar.innerHTML = `HP: ${bee.health}`;
     healthBar.setAttribute('data-health', `${bee.health}`);
 
     beeElement.classList.add('enlarge-translate');
+    setTimeout(() => beeElement.classList.remove('enlarge-translate'), 1500);
 
-    // Remove the class after 1 second to reset the transformation
-    setTimeout(() => {
-        beeElement.classList.remove('enlarge-translate');
-    }, 1500);
+    const attackInfo = document.getElementById('attack-info');
+    if (attackInfo) {
+        attackInfo.innerHTML = damageInfo(bee);
+    }
 }
 
 export function damageInfo(bee: Bee): string {
     if (bee.health <= 0) {
         return `${BeeTypeMapping[bee.type]} ${bee.id} was hit with ${BeeHitDamage[bee.type]} damage and is now dead because its health reached 0.`;
     }
-
     return `You hit ${BeeTypeMapping[bee.type]} ${bee.id} for ${BeeHitDamage[bee.type]} damage`;
 }
 

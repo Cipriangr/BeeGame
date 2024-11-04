@@ -15,7 +15,11 @@ export function saveSwarm(swarm: Swarm) {
 }
 
 export function getSwarm(): Swarm {
-  return JSON.parse(localStorage.getItem('swarm') || '{}');
+  const swarm = localStorage.getItem('swarm');
+  if (swarm) {
+    return JSON.parse(swarm);
+  }
+  return { Queen: [], Workers: [], Drones: [] };
 }
 
 export function savePlayerName(name: string) {
@@ -30,11 +34,10 @@ export function resetGame(): void {
   localStorage.clear();
 }
 
-export function updateBeeStorage(bee: Bee) {
+export function updateBeeStorage(bee: Bee): void {
   const swarm = getSwarm();
   const beeType = bee.type;
   const beeIndex = swarm[beeType].findIndex((b) => b.id === bee.id);
-  console.log('bee', bee);
   if (beeIndex !== -1) { //bee index exist in storage?
     swarm[beeType][beeIndex] = bee;
     saveSwarm(swarm);

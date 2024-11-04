@@ -1,12 +1,13 @@
-import { alertAndHandleReset, initializeGame } from './services/GameService';
+import { alertAndHandleReset } from './services/GameService';
 import { getGameStatus, saveGameStatus, resetGame, getSwarm, savePlayerName, getPlayerName } from './services/StorageService';
 import { createStartButton } from './ui/StartButtonUI';
 import { createPlayerNameElements } from './ui/PlayerUI';
 import { displayGameUI } from './ui/DisplayGameUI';
 import { hitButtonAction } from './components/HitButtonComponent';
+import { initializeSwarm } from './components/SwarmComponent';
 
 let gameInProgress = getGameStatus();
-const swarmSection = document.getElementById('swarm-section');
+const swarmSection = document.getElementById('swarm-section') as HTMLDivElement | null;
 const actionButtons = document.getElementById('action-buttons') as HTMLDivElement;
 const attackInfo = document.getElementById('bee-info') as HTMLDivElement;
 
@@ -15,11 +16,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const resetGameButton = document.getElementById('reset-game') as HTMLButtonElement;
 
     const swarm = getSwarm();  // Retrieve swarm data from localStorage
+    const isSwarmPopulated = Object.values(swarm).every(arr => arr?.length > 0);
 
     //Game not started and swarm data is empty, show input and start button
-    if (!gameInProgress && (Object.keys(swarm).length === 0)) {
+    if (!gameInProgress && !isSwarmPopulated && swarmSection) {
         saveGameStatus(false);
-        createPlayerNameElements(swarmSection!);
+        createPlayerNameElements(swarmSection);
         startGameButton = createStartButton(swarmSection!, initializeBees);
         startGameButton.setAttribute('data-initialized', 'false');
         actionButtons.style.display = 'none';
@@ -32,7 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     //Game in progress and swarm data present, display bees directly
-    if (gameInProgress && Object.keys(swarm).length > 0) {
+    if (gameInProgress && isSwarmPopulated) {
         displayGameUI();
         actionButtons.style.display = 'flex';
         attackInfo.style.display = 'flex';
@@ -69,7 +71,7 @@ function initializeBees(gameButton: HTMLButtonElement) {
         gameButton.style.display = 'none'; // Hide start button
         playerInfo!.style.display = 'none'; // Hide player input section
         saveGameStatus(true);             // Set game like is in progress
-        initializeGame();                 // Initializes game state and saves the swarm to localStorage
+        initializeSwarm();
         displayGameUI();                  // Displays the initialized bees and player info
         hitButtonAction();
         actionButtons.style.display = 'flex';

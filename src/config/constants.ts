@@ -41,3 +41,9 @@ export interface Swarm {
   Workers: Bee[];
   Drones: Bee[];
 }
+
+export enum AlertMessage {
+  GAME_OVER = 'Game Over! No bees left to hit! The game will be restarted',
+  QUEEN_DEAD = 'The Queen has died. All bees are dead. The game will restart',
+  PLAYER_NAME_EMPTY = 'Please enter a player name to start the game',
+}
