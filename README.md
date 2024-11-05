@@ -6,7 +6,6 @@ This project is a simple interactive game where a player can hit bees in a swarm
 
 1. Clone the repository:
 
-  ```bash
   `git clone https://github.com/Cipriangr/BeeGame.git`
 
 
