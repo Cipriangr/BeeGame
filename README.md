@@ -5,7 +5,6 @@ This project is a simple interactive game where a player can hit bees in a swarm
 ## Install Project Locally
 
 1. Clone the repository:
-
   `git clone https://github.com/Cipriangr/BeeGame.git`
 
 
