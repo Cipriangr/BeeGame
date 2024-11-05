@@ -27,9 +27,9 @@ This project is a simple interactive game where a player can hit bees in a swarm
 ## Game Overview
   The bee swarm in this game consists of three types of bees:
 
-  -Queen: 1 bee with 100 HP
-  -Worker: 5 bees, each with 75 HP
-  -Drone: 8 bees, each with 50 HP
+  - Queen: 1 bee with 100 HP
+  - Worker: 5 bees, each with 75 HP
+  - Drone: 8 bees, each with 50 HP
   Gameplay
   1. Objective: Use the "Hit" button to randomly inflict damage on a bee in the swarm.
   2. Damage:
