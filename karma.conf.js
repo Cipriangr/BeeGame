@@ -17,7 +17,16 @@ module.exports = function(config) {
         rules: [
           {
             test: /\.ts$/,
-            use: 'ts-loader',
+            use: [
+              {
+                loader: 'babel-loader',
+                options: {
+                  presets: ['@babel/preset-env'],
+                  plugins: ['babel-plugin-istanbul']
+                }
+              },
+              'ts-loader'
+            ],
             exclude: /node_modules/
           }
         ]

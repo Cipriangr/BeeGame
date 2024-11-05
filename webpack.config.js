@@ -2,37 +2,46 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  entry: './src/app.ts',                // Entry point for the application
+  entry: './src/app.ts',
   output: {
-    filename: 'bundle.js',              // Output bundle filename
+    filename: 'bundle.js',
     path: path.resolve(__dirname, 'dist'),
-    clean: true                         // Clears old files in dist on build
+    clean: true
   },
-  devtool: 'source-map',                 // Generate source maps for easier debugging
+  devtool: 'source-map',
   resolve: {
-    extensions: ['.ts', '.js'],         // Resolve these extensions in imports
+    extensions: ['.ts', '.js']
   },
   module: {
     rules: [
       {
-        test: /\.ts$/,                  // Process all .ts files
-        use: 'ts-loader',
-        exclude: /node_modules/
+        test: /\.ts$/,
+        exclude: /node_modules/,
+        use: [
+          {
+            loader: 'babel-loader',
+            options: {
+              presets: ['@babel/preset-env'],
+              plugins: ['babel-plugin-istanbul']
+            }
+          },
+          'ts-loader'
+        ]
       }
     ]
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: './public/index.html'   // Use `index.html` as the template
+      template: './public/index.html'
     })
   ],
   devServer: {
     static: {
-      directory: path.join(__dirname, 'public'),  // Serve static files from `public`
+      directory: path.join(__dirname, 'public')
     },
     compress: true,
-    port: 3000,                         // Development server port
-    open: true,                         // Open the browser automatically
-    hot: true                           // Enable hot module replacement
-  },
+    port: 3000,
+    open: true,
+    hot: true
+  }
 };
